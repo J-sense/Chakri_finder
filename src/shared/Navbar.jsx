@@ -1,101 +1,144 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/authcontext/AuthContext";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignOut = () => {
     logOut()
-      .then((result) => {
-        console.log(result.user);
-      })
+      .then((result) => console.log(result.user))
       .catch((error) => console.log(error));
   };
 
-  const links = (
+  const navLinks = (
     <>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/jobs">Jobs</Link>
-      </li>
-      <li>
-        <Link to="/about">About</Link>
-      </li>
-      <li>
-        <Link to="/contact">Contact</Link>
-      </li>
+      <Link to="/" className="block py-2 px-4 hover:text-teal-400">
+        Home
+      </Link>
+      <Link to="/jobs" className="block py-2 px-4 hover:text-teal-400">
+        Jobs
+      </Link>
+      <Link to="/about" className="block py-2 px-4 hover:text-teal-400">
+        About
+      </Link>
+      <Link to="/contact" className="block py-2 px-4 hover:text-teal-400">
+        Contact
+      </Link>
     </>
   );
 
   return (
-    <div className="sticky top-0 z-50 w-full shadow-md bg-base-100">
-      <div className="navbar max-w-7xl mx-auto px-4">
-        {/* Left - Logo */}
-        <div className="navbar-start">
-          <div className="dropdown lg:hidden">
-            <button tabIndex={0} className="btn btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52"
-            >
-              {links}
-            </ul>
-          </div>
-          <a
-            className="btn btn-ghost text-xl text-[#00ffcc] animate-pulse"
+    <header className="bg-black text-white shadow-md sticky top-0 z-50">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        {/* Logo */}
+        <div>
+          <Link
+            to="/"
+            className="text-2xl font-bold text-teal-100 border border-zinc-800 rounded-xl px-3 py-2"
             style={{
-              textShadow: "0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc",
+              textShadow: "0 0 5px #00ffcc, 0 0 5px #00ffcc, 0 0 10px #00ffcc",
             }}
           >
             chakriFinder
-          </a>
+          </Link>
         </div>
 
-        {/* Center - Nav Links */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-1">{links}</ul>
-        </div>
+        {/* Desktop Links */}
+        <div className="hidden lg:flex space-x-4">{navLinks}</div>
 
-        {/* Right - Auth Buttons */}
-        <div className="navbar-end space-x-2">
+        {/* Desktop Auth Buttons */}
+        <div className="hidden lg:flex items-center space-x-3">
           {user ? (
             <button
-              className="btn btn-outline-none btn-error btn-sm rounded text-white px-4"
               onClick={handleSignOut}
+              className="bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-2 rounded"
             >
               Logout
             </button>
           ) : (
             <>
-              <Link to="/register" className="btn btn-outline btn-sm">
+              <Link
+                to="/register"
+                className="border border-gray-500 hover:border-teal-400 text-sm px-4 py-2 rounded"
+              >
                 Register
               </Link>
-              <Link to="/signIn" className="btn btn-primary btn-sm">
+              <Link
+                to="/signIn"
+                className="bg-teal-500 hover:bg-teal-600 text-white text-sm px-4 py-2 rounded"
+              >
                 Sign In
               </Link>
             </>
           )}
         </div>
-      </div>
-    </div>
+
+        {/* Mobile Toggle */}
+        <div className="lg:hidden">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-white focus:outline-none"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {menuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="lg:hidden px-4 pb-4 space-y-2 bg-black border-t border-gray-800">
+          {navLinks}
+          <div className="space-y-2">
+            {user ? (
+              <button
+                onClick={handleSignOut}
+                className="w-full bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-2 rounded"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="block w-full text-center border border-gray-500 hover:border-teal-400 text-sm px-4 py-2 rounded"
+                >
+                  Register
+                </Link>
+                <Link
+                  to="/signIn"
+                  className="block w-full text-center bg-teal-500 hover:bg-teal-600 text-white text-sm px-4 py-2 rounded"
+                >
+                  Sign In
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </header>
   );
 };
 
