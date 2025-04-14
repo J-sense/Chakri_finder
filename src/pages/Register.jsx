@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../context/authcontext/AuthContext";
+import SocialLogin from "../components/SocialLogin";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -71,7 +72,10 @@ const Register = () => {
             Register
           </button>
         </form>
-
+        <div className="flex w-full flex-col">
+          <div className="divider">OR</div>
+        </div>
+        <SocialLogin />
         <div className="text-center">
           <p className="text-gray-400 text-sm">
             Already have an account?{" "}

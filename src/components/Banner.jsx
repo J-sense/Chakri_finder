@@ -21,7 +21,7 @@ const Banner = () => {
           Sign up today and take your career to the next level!
         </p>
         <Link to="/jobs">
-          <button className="btn bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-xl transition duration-300 ease-in-out">
+          <button className="btn text-teal-500 hover:bg-teal-700 hover:text-white px-8 py-3 rounded-xl transition duration-300 ease-in-out">
             Explore Jobs
           </button>
         </Link>
