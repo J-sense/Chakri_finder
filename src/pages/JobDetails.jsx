@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 
@@ -13,7 +13,7 @@ const JobDetails = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#121212] text-gray-300 min-h-screen p-6 my-16 shadow shadow-zinc-500 rounded-2xl sm:p-8 md:p-12 max-w-4xl mx-auto space-y-6"
+      className="bg-[#121212] text-gray-300 min-h-screen p-6 my-16  shadow shadow-zinc-500 rounded-2xl sm:p-8 md:p-12 max-w-4xl mx-auto space-y-6"
     >
       {/* Header */}
       <div className="flex items-center gap-4">
@@ -106,9 +106,11 @@ const JobDetails = () => {
         whileTap={{ scale: 0.95 }}
         className="pt-6 text-start"
       >
-        <button className="bg-zinc-900 hover:bg-teal-600 text-teal-500 font-semibold px-16 py-3 rounded-lg transition-all duration-300 shadow-md">
-          Apply Now
-        </button>
+        <Link to={`/job-application/${job._id}`}>
+          <button className="bg-zinc-900 hover:bg-teal-600 text-teal-500 font-semibold px-16 py-3 rounded-lg transition-all duration-300 shadow-md">
+            Apply Now
+          </button>
+        </Link>
       </motion.div>
     </motion.div>
   );
