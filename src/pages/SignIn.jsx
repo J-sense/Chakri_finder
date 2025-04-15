@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import AuthContext from "../context/authcontext/AuthContext";
 import SocialLogin from "../components/SocialLogin";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { singIn } = useContext(AuthContext);
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log("sing", location);
+  const from = location?.state || "/";
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -12,6 +16,7 @@ const SignIn = () => {
     console.log(email, password);
     singIn(email, password)
       .then((result) => {
+        navigate(from);
         console.log(result.user);
       })
       .catch((error) => console.log(error));
