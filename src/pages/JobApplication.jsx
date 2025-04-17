@@ -7,9 +7,10 @@ const JobApplicationForm = () => {
   const handleForm = (e) => {
     e.preventDefault();
     const linkedin = e.target.linkedin.value;
+    const applicant_email = e.target.email.value;
     const resume = e.target.resume.value;
     const portfolio = e.target.linkedin.value;
-    const applicationInfo = { linkedin, resume, portfolio };
+    const applicationInfo = { linkedin, resume, portfolio, applicant_email };
     fetch(`http://localhost:3000/job-applications`, {
       method: "POST",
       headers: {
@@ -37,6 +38,7 @@ const JobApplicationForm = () => {
               placeholder="Paste email as a URL (for testing)"
               className="w-full px-4 py-2 bg-zinc-800 text-teal-400 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               defaultValue={user.email}
+              name="email"
               readOnly
             />
           </div>

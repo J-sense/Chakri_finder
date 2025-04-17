@@ -20,8 +20,11 @@ const Navbar = () => {
       <Link to="/jobs" className="block py-2 px-4 hover:text-teal-400">
         Jobs
       </Link>
-      <Link to="/about" className="block py-2 px-4 hover:text-teal-400">
-        About
+      <Link
+        to="/my-application"
+        className="block py-2 px-4 hover:text-teal-400"
+      >
+        My-Application
       </Link>
       <Link to="/contact" className="block py-2 px-4 hover:text-teal-400">
         Contact
