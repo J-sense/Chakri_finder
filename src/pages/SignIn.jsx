@@ -17,7 +17,6 @@ const SignIn = () => {
     singIn(email, password)
       .then((result) => {
         navigate(from);
-        console.log(result.user);
       })
       .catch((error) => console.log(error));
   };
